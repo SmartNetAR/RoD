@@ -34,6 +34,8 @@ function main() {
   // e1.render = new RenderComponent();
 
   const display = new Display('canvas', 640, 456);
+  display.load();
+  return;
   const displaySyze: Vec2f = { x: display.getWidth(), y: 456 };
   const preRenSys = new PreRenderSystem();
   const renSys = new RenderSystem(display);
@@ -49,7 +51,7 @@ function main() {
   let frames = 0;
 
   levMan.initLevel1();
-  
+
   function update() {
     const frameStart = Date.now();
     if (!game.paused) {
