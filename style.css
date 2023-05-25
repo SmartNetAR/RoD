@@ -1,0 +1,38 @@
+@import url('https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css');
+
+h1,
+h2 {
+  font-family: Lato;
+}
+
+.canvas-container {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+#canvas {
+  /* background-color: red; */
+  border: 2px solid whitesmoke;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  user-select: none;
+}
+
+.controls button {
+  border: none;
+  padding: 0%;
+  background-color: transparent;
+  font-size: 50px;
+}
+
+.controls .middle {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+}
