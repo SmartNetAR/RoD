@@ -25,33 +25,27 @@ class ControlsSystem {
   }
 
   move(entity: Entity, arrow: string, type: string) {
+    entity.physics.vel = { x: 0, y: 0, };
+
     const arrows = {
       left: () => {
         if (type === 'mousedown' || type === 'touchstart') {
-          entity.physics.vel.x = -this.impulse;
-        } else if (type === 'mouseup' || type === 'touchend') {
-          entity.physics.vel.x = 0;
+          entity.physics.vel.x -= this.impulse;
         }
       },
       right: () => {
         if (type === 'mousedown' || type === 'touchstart') {
-          entity.physics.vel.x = this.impulse;
-        } else if (type === 'mouseup' || type === 'touchend') {
-          entity.physics.vel.x = 0;
+          entity.physics.vel.x += this.impulse;
         }
       },
       up: () => {
         if (type === 'mousedown' || type === 'touchstart') {
-          entity.physics.vel.y = -this.impulse;
-        } else if (type === 'mouseup' || type === 'touchend') {
-          entity.physics.vel.y = 0;
+          entity.physics.vel.y -= this.impulse;
         }
       },
       down: () => {
         if (type === 'mousedown' || type === 'touchstart') {
-          entity.physics.vel.y = this.impulse;
-        } else if (type === 'mouseup' || type === 'touchend') {
-          entity.physics.vel.y = 0;
+          entity.physics.vel.y += this.impulse;
         }
       },
     };

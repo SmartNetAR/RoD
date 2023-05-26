@@ -1,10 +1,13 @@
+import Rect2D from './rect2d';
 import Sprite, { spriteType } from './sprite';
+import { SpriteType } from './sys/spriteManager';
 import Vec2f from './vec';
 
 class Display {
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
   private gameSpriteSheet: HTMLImageElement;
+  private callback: Function;
 
   constructor(idCanvasElement: string, w: number = 640, h: number = 480) {
     this.canvas = document.getElementById(idCanvasElement) as HTMLCanvasElement;
@@ -16,55 +19,57 @@ class Display {
     this.ctx.font = '25px Arial';
   }
 
-  load() {
+  load(callback: Function) {
+    this.callback = callback;
     console.log('load');
     this.gameSpriteSheet = new Image();
     this.gameSpriteSheet.src =
-      'https://cdn.jsdelivr.net/gh/SmartNetAR/RoD@main/assets/spritesheet.png';
+      'https://cdn.jsdelivr.net/gh/SmartNetAR/RoD@main/assets/spritesheet_min.png';
+      // '/assets/spritesheet_min.png'
     console.log(this.gameSpriteSheet.src);
     this.gameSpriteSheet.onload = this.loadImages;
   }
 
   drawPlayer(pos: Vec2f) {
-    const srcX = 5; // punto inicio imagen ancho
-    const srcY = 142; // punto inicio imagen alto
-    const spriteWidth = 125; // recorte ancho
-    const spriteHeight = 127; // recorte alto
+    const rec = new Rect2D(0, 41, 38, 38)
     this.ctx.drawImage(
       this.gameSpriteSheet,
-      srcX,
-      srcY,
-      spriteWidth,
-      spriteHeight,
+      rec.x, rec.y, rec.width, rec.height,
       pos.x,
       pos.y,
-      spriteWidth / 2,
-      spriteHeight / 2
+      rec.width,
+      rec.height
     );
   }
 
   drawEnemy(pos: Vec2f) {
-    const srcX = 665; // punto inicio imagen ancho
-    const srcY = 142; // punto inicio imagen alto
-    const spriteWidth = 110; // recorte ancho
-    const spriteHeight = 127; // recorte alto
+    const rec = new Rect2D(198, 41, 33, 38)
     this.ctx.drawImage(
       this.gameSpriteSheet,
-      srcX,
-      srcY,
-      spriteWidth,
-      spriteHeight,
+      rec.x, rec.y, rec.width, rec.height,
       pos.x,
       pos.y,
-      spriteWidth / 2,
-      spriteHeight / 2
+      rec.width,
+      rec.height
+    );
+  }
+
+  drawShot(pos: Vec2f) {
+    const rec = new Rect2D(224, 20, 10, 10)
+    this.ctx.drawImage(
+      this.gameSpriteSheet,
+      rec.x, rec.y, rec.width, rec.height,
+      pos.x,
+      pos.y,
+      rec.width,
+      rec.height
     );
   }
 
   loadImages = () => {
-    this.clean();
-    this.drawPlayer({ x: 100, y: 200 });
-    this.drawEnemy({ x: 400, y: 300 });
+    if (typeof this.callback === "function") {
+      this.callback();
+    }
   };
 
   getWidth() {
@@ -75,11 +80,13 @@ class Display {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  drawSprite(sprite: Sprite, pos: Vec2f) {
-    if (sprite.type === spriteType.string) {
-      this.drawSprintSprite(pos, sprite.style);
+  drawSprite(spriteType: SpriteType, pos: Vec2f) {
+    if (spriteType === SpriteType.Player) {
+      // this.drawSprintSprite(pos, spriteType.style);
+      this.drawPlayer(pos);
     } else {
-      this.drawRectSprite(pos, sprite.style);
+      this.drawShot(pos);
+      // this.drawRectSprite(pos, spriteType.style);
     }
   }
 
@@ -110,10 +117,6 @@ class Display {
     // spriteRect2.type = spriteType.rect;
     // spriteRect2.style = `rgba(255, 165, 0, 0.7)`;
     // this.drawSprite(spriteRect2, { x, y: y + 100 });
-  }
-
-  draw2(sprite: Sprite, pos: Vec2f, w: number = 10, h: number = 10) {
-    this.drawSprite(sprite, pos);
   }
 }
 

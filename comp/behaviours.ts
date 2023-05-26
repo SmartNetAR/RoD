@@ -1,14 +1,15 @@
 import Entity from '../entity';
+import LevelManager from '../sys/levelManager';
 import Vec2f from '../vec';
 
 export interface Behaviour {
-  run(en: Entity): void;
+  run(en: Entity, levMan: LevelManager): void;
 }
 
 export class BehaviourBounce implements Behaviour {
   constructor(private maxPos: Vec2f) {}
 
-  run(e: Entity) {
+  run(e: Entity, levMan: LevelManager) {
     if (e.physics) {
       const phy = e.physics;
 
@@ -30,15 +31,55 @@ export class BehaviourBounce implements Behaviour {
 export class BehaviourChangeVY implements Behaviour {
   counter: number;
   constructor(private initialCounter = 40) {
-    this.counter = initialCounter;
+    this.counter = this.initialCounter;
   }
 
-  run(e: Entity) {
+  run(e: Entity, levMan: LevelManager) {
     if (e.physics) {
       const phy = e.physics;
 
       if (this.counter == 0) {
         phy.vel.y = -phy.vel.y;
+        this.counter = this.initialCounter;
+      } else {
+        --this.counter;
+      }
+    }
+  }
+}
+
+export class BehaviourShotFrequently implements Behaviour {
+  counter: number;
+  constructor(private initialCounter = 40) {
+    this.counter = this.initialCounter;
+  }
+
+  run(e: Entity, levMan: LevelManager) {
+    if (e.physics) {
+      const phy = e.physics;
+
+      if (this.counter == 0) {
+        levMan.createShot(phy.pos, {x: 5, y: 0})
+        this.counter = this.initialCounter;
+      } else {
+        --this.counter;
+      }
+    }
+  }
+}
+
+export class BehaviourAutodistroy implements Behaviour {
+  counter: number;
+  constructor(private initialCounter = 40) {
+    this.counter = this.initialCounter;
+  }
+
+  run(e: Entity, levMan: LevelManager) {
+    if (e.physics) {
+      const phy = e.physics;
+
+      if (this.counter == 0) {
+        // levMan.createShot(phy.pos, {x: 5, y: 0});
         this.counter = this.initialCounter;
       } else {
         --this.counter;

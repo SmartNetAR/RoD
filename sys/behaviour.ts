@@ -1,12 +1,13 @@
 import Entity from '../entity';
+import LevelManager from './levelManager';
 
 class BehaviourSystem {
-  constructor() {}
+  constructor(private levMan: LevelManager) {}
 
   update(entities: Entity[]) {
     for (const entity of entities) {
-      if (entity.behCmp.beheavor) {
-        entity.behCmp.beheavor.run(entity);
+      if (entity.behCmp?.beheavor) {
+        entity.behCmp.beheavor.run(entity, this.levMan);
       }
     }
   }
