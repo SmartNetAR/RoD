@@ -1,18 +1,33 @@
-<div id="app">
-  <button id="pause">pause</button>
-  <div class="canvas-container">
-    <canvas id="canvas"></canvas>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RoD</title>
+</head>
+
+<body>
+  <div id="app">
+    <button id="pause">pause</button>
+    <div class="canvas-container">
+      <canvas id="canvas"></canvas>
+    </div>
+    <div class="controls">
+      <div class="top">
+        <button name="up">⬆️</button>
+      </div>
+      <div class="middle">
+        <button name="left">⬅️</button>
+        <button name="right">➡️</button>
+      </div>
+      <div class="bottom">
+        <button name="down">⬇️</button>
+      </div>
+    </div>
   </div>
-  <div class="controls">
-    <div class="top">
-      <button name="up">⬆️</button>
-    </div>
-    <div class="middle">
-      <button name="left">⬅️</button>
-      <button name="right">➡️</button>
-    </div>
-    <div class="bottom">
-      <button name="down">⬇️</button>
-    </div>
-  </div>
-</div>
+  <script type="module" src="index.ts"></script>
+</body>
+
+</html>
