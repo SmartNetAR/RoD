@@ -25,25 +25,34 @@ class ControlsSystem {
   }
 
   move(entity: Entity, arrow: string, type: string) {
-    entity.physics.vel = { x: 0, y: 0, };
+    function resetX() {
+      entity.physics.vel = {...entity.physics.vel, x: 0 };
+    }
+    function resetY() {
+      entity.physics.vel = {...entity.physics.vel, y: 0 };
+    }
 
     const arrows = {
       left: () => {
+        resetX();
         if (type === 'mousedown' || type === 'touchstart') {
           entity.physics.vel.x -= this.impulse;
         }
       },
       right: () => {
+        resetX();
         if (type === 'mousedown' || type === 'touchstart') {
           entity.physics.vel.x += this.impulse;
         }
       },
       up: () => {
+        resetY();
         if (type === 'mousedown' || type === 'touchstart') {
           entity.physics.vel.y -= this.impulse;
         }
       },
       down: () => {
+        resetY();
         if (type === 'mousedown' || type === 'touchstart') {
           entity.physics.vel.y += this.impulse;
         }
@@ -59,7 +68,7 @@ class ControlsSystem {
       if (entity.controlled) this.move(entity, btnName, ev.type);
     }
   }
-  update(entity: Entity) {}
+  update(entity: Entity) { }
 }
 
 export default ControlsSystem;
