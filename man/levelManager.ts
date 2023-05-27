@@ -3,7 +3,7 @@ import PhysicsComponent from '../comp/physics';
 import RenderComponent from '../comp/render';
 import { Behaviour, BehaviourAutodistroy, BehaviourBounce, BehaviourChangeVY, BehaviourShotFrequently } from '../comp/behaviours';
 import EntityManager from './entityManager';
-import Vec2f from '../vec';
+import Vec2f from '../util/vec';
 import SpriteManager, { SpriteType, SpriteTypeEnum } from './spriteManager';
 
 interface EntityToCreate {

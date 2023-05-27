@@ -3,8 +3,8 @@
 
 // Import stylesheets
 import './style.css';
-import Display from './display';
-import Vec2f from './vec';
+import Display from './util/display';
+import Vec2f from './util/vec';
 
 import LevelManager from './man/levelManager';
 import PhysicsSystem from './sys/physics';

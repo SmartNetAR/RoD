@@ -1,5 +1,5 @@
 import Entity from '../entity';
-import Vec2f from '../vec';
+import Vec2f from '../util/vec';
 
 class PhysicsSystem {
   constructor(private maxPos: Vec2f) {}

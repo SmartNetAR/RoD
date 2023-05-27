@@ -8,8 +8,6 @@ class Entity {
   behCmp?: BehaviourComponent;
   controlled: boolean;
   alive: boolean;
-
-  constructor() {}
 }
 
 export default Entity;

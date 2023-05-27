@@ -1,5 +1,5 @@
 import Entity from '../entity';
-import Display from '../display';
+import Display from '../util/display';
 
 class RenderSystem {
   constructor(private display: Display) {}

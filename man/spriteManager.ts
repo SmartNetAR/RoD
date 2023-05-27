@@ -1,4 +1,4 @@
-import Rect2D from '../rect2d';
+import Rect2D from '../util/rect2d';
 
 export const SpriteTypeEnum = {
   Enemy_Right: Symbol("Enemy_Right"),

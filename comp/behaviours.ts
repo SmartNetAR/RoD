@@ -1,6 +1,6 @@
 import Entity from '../entity';
 import LevelManager from '../man/levelManager';
-import Vec2f from '../vec';
+import Vec2f from '../util/vec';
 
 export interface Behaviour {
   run(en: Entity, levMan: LevelManager): void;

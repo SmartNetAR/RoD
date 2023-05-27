@@ -1,5 +1,5 @@
-import Rect2D from '../rect2d';
-import Vec2f from '../vec';
+import Rect2D from '../util/rect2d';
+import Vec2f from '../util/vec';
 
 class RenderComponent {
   rec: Rect2D;
