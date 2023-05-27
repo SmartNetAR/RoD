@@ -8,7 +8,7 @@ class RenderSystem {
     this.display.clean();
     for (const entity of entities) {
       if (entity.render) {
-        this.display.draw(entity.render.sprite, entity.render.pos);
+        this.display.draw(entity.render.rec, entity.render.pos);
       }
     }
   }

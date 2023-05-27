@@ -1,5 +1,5 @@
 import Entity from '../entity';
-import LevelManager from '../sys/levelManager';
+import LevelManager from '../man/levelManager';
 import Vec2f from '../vec';
 
 export interface Behaviour {
@@ -38,7 +38,7 @@ export class BehaviourChangeVY implements Behaviour {
     if (e.physics) {
       const phy = e.physics;
 
-      if (this.counter == 0) {
+      if (this.counter === 0) {
         phy.vel.y = -phy.vel.y;
         this.counter = this.initialCounter;
       } else {
@@ -58,8 +58,8 @@ export class BehaviourShotFrequently implements Behaviour {
     if (e.physics) {
       const phy = e.physics;
 
-      if (this.counter == 0) {
-        levMan.createShot(phy.pos, {x: 5, y: 0})
+      if (this.counter === 0) {
+        levMan.createShot(phy.pos, {x: 10, y: 0})
         this.counter = this.initialCounter;
       } else {
         --this.counter;
@@ -70,17 +70,15 @@ export class BehaviourShotFrequently implements Behaviour {
 
 export class BehaviourAutodistroy implements Behaviour {
   counter: number;
-  constructor(private initialCounter = 40) {
-    this.counter = this.initialCounter;
+  alive: boolean;
+  constructor(counter: number) {
+    this.counter = counter;
   }
 
   run(e: Entity, levMan: LevelManager) {
     if (e.physics) {
-      const phy = e.physics;
-
-      if (this.counter == 0) {
-        // levMan.createShot(phy.pos, {x: 5, y: 0});
-        this.counter = this.initialCounter;
+      if (this.counter === 0) {
+        e.alive = false;
       } else {
         --this.counter;
       }

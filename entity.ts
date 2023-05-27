@@ -7,6 +7,7 @@ class Entity {
   render?: RenderComponent;
   behCmp?: BehaviourComponent;
   controlled: boolean;
+  alive: boolean;
 
   constructor() {}
 }

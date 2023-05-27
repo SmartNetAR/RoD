@@ -1,12 +1,14 @@
-import Sprite from '../sprite';
+import Rect2D from '../rect2d';
 import Vec2f from '../vec';
 
 class RenderComponent {
-  // sprite: Sprite;
+  rec: Rect2D;
   pos = new Vec2f();
   vel = new Vec2f();
 
-  constructor(public sprite: Sprite) {}
+  constructor(rec: Rect2D) {
+    this.rec = rec;
+  }
 }
 
 export default RenderComponent;

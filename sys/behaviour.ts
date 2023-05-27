@@ -1,5 +1,5 @@
 import Entity from '../entity';
-import LevelManager from './levelManager';
+import LevelManager from '../man/levelManager';
 
 class BehaviourSystem {
   constructor(private levMan: LevelManager) {}

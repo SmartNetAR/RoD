@@ -4,7 +4,7 @@ import RenderComponent from '../comp/render';
 import { Behaviour, BehaviourAutodistroy, BehaviourBounce, BehaviourChangeVY, BehaviourShotFrequently } from '../comp/behaviours';
 import EntityManager from './entityManager';
 import Vec2f from '../vec';
-import SpriteManager, { SpriteType } from './spriteManager';
+import SpriteManager, { SpriteType, SpriteTypeEnum } from './spriteManager';
 
 interface EntityToCreate {
   pos: { x: number; y: number; };
@@ -16,7 +16,7 @@ interface EntityToCreate {
 
 class LevelManager {
   private entityMan = new EntityManager();
-  private spriteManager = new SpriteManager();
+  private spriteMan = new SpriteManager();
 
   constructor(private displaySize: Vec2f) { }
 
@@ -28,8 +28,8 @@ class LevelManager {
     this.createEntity({
       pos,
       vel,
-      spriteType: SpriteType.Shot,
-      behaviour: new BehaviourAutodistroy(30),
+      spriteType: SpriteTypeEnum.Shot_Small,
+      behaviour: new BehaviourAutodistroy(50),
     })
   }
 
@@ -37,33 +37,28 @@ class LevelManager {
     const entitiesToCreate: EntityToCreate[] = [
       {
         pos: { x: 300, y: 300 }, vel: { x: 0, y: 0 },
-        spriteType: SpriteType.Player,
+        spriteType: SpriteTypeEnum.Player_Right,
         behaviour: new BehaviourBounce(this.displaySize),
         controlled: true
       },
       {
         pos: { x: 1, y: 100 }, vel: { x: 0.3, y: -0.3 },
-        spriteType: SpriteType.Enemy,
+        spriteType: SpriteTypeEnum.Enemy_Right,
         behaviour: new BehaviourBounce(this.displaySize),
       },
       {
         pos: { x: 50, y: 100 }, vel: { x: -3, y: 3 },
-        spriteType: SpriteType.Enemy,
+        spriteType: SpriteTypeEnum.Enemy_Right,
         behaviour: new BehaviourBounce(this.displaySize),
       },
       {
-        pos: { x: 20, y: 300 }, vel: { x: 3, y: 3 },
-        spriteType: SpriteType.Enemy,
+        pos: { x: 400, y: 100 }, vel: { x: 0, y: 3 },
+        spriteType: SpriteTypeEnum.Enemy_Right,
         behaviour: new BehaviourChangeVY(),
       },
-      // {
-      //   pos: { x: 20, y: 50 }, vel: { x: 1, y: 5 },
-      //   spriteType: SpriteType.Shot,
-      //   behaviour: new BehaviourChangeVY(50),
-      // }
       {
         pos: { x: 5, y: 200 }, vel: { x: 0, y: 0 },
-        spriteType: SpriteType.Enemy,
+        spriteType: SpriteTypeEnum.Enemy_Right,
         behaviour: new BehaviourShotFrequently(60),
       },
     ]
@@ -77,7 +72,7 @@ class LevelManager {
     const e = this.entityMan.create();
     e.physics = new PhysicsComponent({...entity.pos}, {...entity.vel});
     e.render = new RenderComponent(
-      this.spriteManager.create(entity.spriteType)
+      this.spriteMan.createSprite(entity.spriteType)
     );
     e.behCmp = new BehaviourComponent();
     e.behCmp.beheavor = entity.behaviour;
