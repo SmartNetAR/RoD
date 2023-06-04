@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "ts-check": "tsc --noEmit",
-    "dev": "vite"
+    "dev": "npm ts-check && vite"
   },
   "devDependencies": {
     "typescript": "^5.0.4",
