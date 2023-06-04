@@ -11,7 +11,8 @@ import PhysicsSystem from './sys/physics';
 import RenderSystem from './sys/render';
 import BehaviourSystem from './sys/behaviour';
 import PreRenderSystem from './sys/prerender';
-import ControlsSystem from './sys/controller';
+import InputSystem from './sys/input';
+import MsKeyboard from './util/msKeyboard';
 const appDiv: HTMLElement = document.getElementById('app');
 
 // let i = 0;
@@ -26,6 +27,7 @@ function run() {
     paused: false,
   };
 
+  MsKeyboard.init();
   const pauseBtn: HTMLElement = document.getElementById('pause');
   pauseBtn.addEventListener('click', (ev) => {
     game.paused = !game.paused;
@@ -39,11 +41,11 @@ function run() {
 
   const preRenSys = new PreRenderSystem();
   const renSys = new RenderSystem(display);
-  const phySys = new PhysicsSystem(displaySyze);
+  const phySys = new PhysicsSystem();
   const behSys = new BehaviourSystem(levMan);
 
   const entityMan = levMan.getEntityMan();
-  const ctrlSys = new ControlsSystem(entityMan.entities, 4);
+  const inpSys = new InputSystem(4);
 
   const maxFPS = 48;
   const milsPerFrame = 1000 / maxFPS;
@@ -57,6 +59,8 @@ function run() {
 
       preRenSys.update(entityMan.entities);
       renSys.update(entityMan.entities);
+
+      inpSys.update(entityMan.entities);
 
       phySys.update(entityMan.entities);
       behSys.update(entityMan.entities);

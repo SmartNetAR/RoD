@@ -1,8 +1,7 @@
 import Entity from '../entity';
-import Vec2f from '../util/vec';
 
 class PhysicsSystem {
-  constructor(private maxPos: Vec2f) {}
+  constructor() { }
 
   update(entities: Entity[]) {
     for (const entity of entities) {

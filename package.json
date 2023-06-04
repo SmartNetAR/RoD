@@ -1,8 +1,9 @@
 {
-  "name": "RoD",
+  "name": "rod",
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "ts-check": "tsc --noEmit",
     "dev": "vite"
   },
   "devDependencies": {

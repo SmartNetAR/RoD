@@ -5,6 +5,7 @@ import { Behaviour, BehaviourAutodistroy, BehaviourBounce, BehaviourChangeVY, Be
 import EntityManager from './entityManager';
 import Vec2f from '../util/vec';
 import SpriteManager, { SpriteType, SpriteTypeEnum } from './spriteManager';
+import InputComponent from '../comp/input';
 
 interface EntityToCreate {
   pos: { x: number; y: number; };
@@ -68,15 +69,16 @@ class LevelManager {
     }
   }
 
-  private createEntity(entity: EntityToCreate) {
+  private createEntity(entityConfig: EntityToCreate) {
     const e = this.entityMan.create();
-    e.physics = new PhysicsComponent({...entity.pos}, {...entity.vel});
+    e.physics = new PhysicsComponent({...entityConfig.pos}, {...entityConfig.vel});
     e.render = new RenderComponent(
-      this.spriteMan.createSprite(entity.spriteType)
+      this.spriteMan.createSprite(entityConfig.spriteType)
     );
     e.behCmp = new BehaviourComponent();
-    e.behCmp.beheavor = entity.behaviour;
-    e.controlled = entity.controlled === true;
+    e.behCmp.beheavor = entityConfig.behaviour;
+    if (entityConfig.controlled)
+      e.inpCmp = new InputComponent();
   }
 }
 
