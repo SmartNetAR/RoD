@@ -1,13 +1,13 @@
 import Entity from '../entity';
+import EntityManager from '../man/entityManager';
 import MsKeyboard from '../util/msKeyboard';
 
 class InputSystem {
   static msKeyboard = MsKeyboard;
 
-  constructor(private impulse: number) { }
+  constructor(private entityMan: EntityManager, private impulse: number) { }
 
-  update(entities: Entity[]) {
-    for (const entity of entities) {
+  updateOneEntity(entity: Entity) {
       const inp = entity.inpCmp;
       const phy = entity.physics;
       if (inp && phy) {
@@ -26,7 +26,10 @@ class InputSystem {
           phy.vel.x -= this.impulse;
         }
       }
-    }
+  }
+
+  update() {
+    this.entityMan.forAll(this.updateOneEntity.bind(this));
   }
 }
 

@@ -1,16 +1,21 @@
 import Entity from '../entity';
+import EntityManager from '../man/entityManager';
 
 class PreRenderSystem {
-  update(entities: Entity[]) {
-    for (const entity of entities) {
-      if (entity.physics && entity.render) {
-        const phy = entity.physics.pos;
-        const ren = entity.render.pos;
+  constructor(private entityMan: EntityManager) { }
 
-        ren.x = Math.round(phy.x);
-        ren.y = Math.round(phy.y);
-      }
+  updateOneEntity(entity: Entity) {
+    if (entity.physics && entity.render) {
+      const phy = entity.physics.pos;
+      const ren = entity.render.pos;
+
+      ren.x = Math.round(phy.x);
+      ren.y = Math.round(phy.y);
     }
+  }
+
+  update() {
+    this.entityMan.forAll(this.updateOneEntity.bind(this));
   }
 }
 

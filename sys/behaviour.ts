@@ -1,15 +1,18 @@
 import Entity from '../entity';
+import EntityManager from '../man/entityManager';
 import LevelManager from '../man/levelManager';
 
 class BehaviourSystem {
-  constructor(private levMan: LevelManager) {}
+  constructor(private entityMan: EntityManager, private levMan: LevelManager) { }
 
-  update(entities: Entity[]) {
-    for (const entity of entities) {
-      if (entity.behCmp?.beheavor) {
-        entity.behCmp.beheavor.run(entity, this.levMan);
-      }
+  updateOneEntity(entity: Entity) {
+    if (entity.behCmp?.beheavor) {
+      entity.behCmp.beheavor.run(entity, this.levMan);
     }
+  }
+
+  update() {
+    this.entityMan.forAll(this.updateOneEntity.bind(this));
   }
 }
 

@@ -12,13 +12,15 @@ class EntityManager {
     return entity;
   }
 
-  get entities() {
-    return this.#entities;
-  }
-
   updated() {
     this.incorporateNewEntities();
     this.destroyMarkedEntities();
+  }
+
+  forAll(updFunc: (e: Entity) => void) {
+    for (const entity of this.#entities) {
+      updFunc(entity);
+    }
   }
 
   private incorporateNewEntities() {

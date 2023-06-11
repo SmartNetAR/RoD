@@ -9,6 +9,7 @@ class Display {
 
   constructor(idCanvasElement: string, w: number = 640, h: number = 480) {
     this.canvas = document.getElementById(idCanvasElement) as HTMLCanvasElement;
+    if (!this.canvas) throw new Error(`Canvas with id: ${idCanvasElement} not found`);
     const maxWidth = window.innerWidth - 20;
     this.canvas.width = w <= maxWidth ? w : maxWidth;
     this.canvas.height = h;
@@ -32,8 +33,12 @@ class Display {
     }
   };
 
-  getWidth() {
+  get width() {
     return this.canvas.width;
+  }
+
+  get height() {
+    return this.canvas.height;
   }
 
   clean() {

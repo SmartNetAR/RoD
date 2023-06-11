@@ -9,8 +9,8 @@ type MapKey = keyof typeof keyMap;
 
 class MsKeyboard {
 
-  static init() {
-    MsKeyboard.addEventListeners();
+  static init(btnControlsClass: string) {
+    MsKeyboard.addEventListeners(btnControlsClass);
   }
 
   static isKeyPressed(key: MapKey): Boolean {
@@ -21,9 +21,8 @@ class MsKeyboard {
   // static isKeyPressed(k: any) { };
   // static isExitKeyPressed() { };
 
-  private static addEventListeners() {
-    // buttons
-    const controlButtons = document.querySelectorAll('.controls button');
+  private static addEventListeners(btnControlsClass: string) {
+    const controlButtons = document.querySelectorAll(`.${btnControlsClass} button`);
 
     for (const ctrlBtn of controlButtons) {
       ctrlBtn.addEventListener('mousedown', this.buttonPressEventHandler.bind(this));

@@ -1,16 +1,16 @@
-import Entity from '../entity';
+import EntityManager from '../man/entityManager';
 import Display from '../util/display';
 
 class RenderSystem {
-  constructor(private display: Display) {}
+  constructor(private entityMan: EntityManager, private display: Display) {}
 
-  update(entities: Entity[]) {
+  update() {
     this.display.clean();
-    for (const entity of entities) {
+    this.entityMan.forAll(entity => {
       if (entity.render) {
         this.display.draw(entity.render.rec, entity.render.pos);
       }
-    }
+    });
   }
 }
 
